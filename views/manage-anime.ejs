@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Anime</title>
+    <link rel="stylesheet" href="/public/css/admin.css">
+    <link rel="shortcut icon" href="/public/favicon.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script
+        src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+        crossorigin="anonymous">
+    </script>
+</head>
+<body>
+    <!-- header start -->
+    <%- include('admin-header') %>
+    <!-- header end -->
+    <!-- Main Start -->
+    <main class="main" id="main">
+        <section class="manage">
+            <div class="manage-heading">
+                <h1>Manage Anime</h1> <p>Showing <span style="color: #D65A31;"><%= result.length %></span> Results</p>
+                <a href="/admin/add-anime"><button class="add-content-btn">Add Anime</button></a>
+            </div>
+            <div class="manage-table" style="overflow-x: auto;">
+                <table>
+                    <tr>
+                        <th>S.No.</th>
+                        <th>Name</th>
+                        <th>Season</th>
+                        <th>Anime Cover</th>
+                        <th>Genres</th>
+                        <th>Rating</th>
+                        <th>Type</th>
+                        <th>Story-Line</th>
+                        <th>Actions</th>
+                    </tr>
+                    <% if(result.length>0) { %>
+                    <% for(let i = 0; i < result.length; i++){ %>
+                        <tr>
+                            <td><%= i+1 %></td>
+                            <td><%= result[i].anime_name %>
+                                <% if(result[i].arc_name !== '-' && result[i].arc_name!=='') { %>
+                                &nbsp;:&nbsp;<%= result[i].arc_name %>
+                                <% } %>
+                            </td>
+                            <td><%= result[i].season %></td>
+                            <td><img src="<%= result[i].cover_img %>" alt="img" width="100%" loading="lazy"></td>
+                            <td><%= result[i].genres %></td>
+                            <td><%= result[i].rating %></td>
+                            <td><%= result[i].type %></td>
+                            <td><%= result[i].story_line %></td>
+                            <td class="table-action">
+                                <button title="edit anime"><a href="/admin/edit-anime/<%= result[i].anime_id %>"><i class="material-icons">mode_edit</i></a></button>
+                                <button title="delete"><a href="/admin/delete-anime/<%= result[i].anime_id %>" onclick="return confirm('Are you sure, you want to delete <%= result[i].anime_name %>?');" ><i class="material-icons">delete</i></a></button>
+                            </td>
+                        </tr>
+                    <% } %>
+                    <% } %>
+                    <!-- <tr>
+                        <td>1</td>
+                        <td>One Piece</td>
+                        <td>1</td>
+                        <td>path</td>
+                        <td>Action, Adventure, Comedy, Drama, Fantasy</td>
+                        <td>9.0</td>
+                        <td>Anime</td>
+                        <td>There once lived a pirate named Gol D. Roger. He obtained wealth, fame, and power to earn the title of Pirate King. When he was captured and about to be executed, he revealed that his treasure called One Piece was hidden somewhere at the Grand Line. This made all people set out to search and uncover the One Piece treasure, but no one ever found the location of Gol D. Roger's treasure, and the Grand Line was too dangerous a place to overcome. Twenty-two years after Gol D. Roger's death, a boy named Monkey D. Luffy decided to become a pirate and search for Gol D. Roger's treasure to become the next Pirate King.</td>
+                        <td class="table-action">
+                            <button title="edit anime"><a href="/admin/edit-anime"><i class="material-icons">mode_edit</i></a></button>
+                            <button title="delete"><a href=""></a><i class="material-icons">delete</i></a></button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>Demon Slayer: Kimetsu no Yaiba Swordsmith Village Arc</td>
+                        <td>1</td>
+                        <td>path</td>
+                        <td>Action, Adventure, Comedy, Drama, Fantasy</td>
+                        <td>9.0</td>
+                        <td>Movie</td>
+                        <td>There once lived a pirate named Gol D. Roger. He obtained wealth, fame, and power to earn the title of Pirate King. When he was captured and about to be executed, he revealed that his treasure called One Piece was hidden somewhere at the Grand Line. This made all people set out to search and uncover the One Piece treasure, but no one ever found the location of Gol D. Roger's treasure, and the Grand Line was too dangerous a place to overcome. Twenty-two years after Gol D. Roger's death, a boy named Monkey D. Luffy decided to become a pirate and search for Gol D. Roger's treasure to become the next Pirate King.</td>
+                        <td class="table-action">
+                            <button title="edit anime"><a href="/admin/edit-anime"><i class="material-icons">mode_edit</i></a></button>
+                            <button title="delete"><a href=""></a><i class="material-icons">delete</i></a></button>
+                        </td>
+                    </tr> -->
+                    
+                </table>
+            </div>
+        </section>
+        
+        
+    </main>
+    <!-- Main End -->
+    <!-- footer start -->
+    <%- include('admin-footer') %>
+    <!-- footer end -->
+    <button class="back-to-top" onclick="topFunction()" id="myBtn" title="Go to top">&#8593;</button>
+    <!-- Scripts start -->
+    <script src="/public/scripts/admin.js"></script>
+    <script src="/public/scripts/file-include.js"></script>
+    <!-- Scripts end -->
+</body>
+</html>

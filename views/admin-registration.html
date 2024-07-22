@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Admin Sign Up</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <link rel="stylesheet" href="../public/css/loginstyle.css" />
+    <link rel="shortcut icon" href="../public/favicon.ico" type="image/x-icon">
+    
+  </head>
+  <body>
+    <section class="container">
+      <div class="login-container">
+        <div class="circle circle-one"> <img src="../public/img/luffy-gear-5.png" alt="" srcset="" width="100%" ></div>
+        <div class="form-container">
+  
+          <h1 class="opacity">SIGN UP</h1>
+          <form method="post" action="/admin/newUser">
+            <input type="email" id="uname" name="uname" placeholder="USERNAME(EX@GMAIL.COM)" />
+            <input type="password" id="pass" name="pass" placeholder="PASSWORD" />
+            <input type="text" id="cpass" name="cpass" placeholder="CONFIRM PASSWORD" />
+  
+  
+            <button name="submit" id="submit" class="opacity" onclick="return fun()">REGISTER</button>
+  
+          </form>
+  
+          <div class="register-forget opacity">
+            <a href="/admin">LOGIN HERE</a>
+          </div>
+        </div>
+        <div class="circle circle-two"></div>
+      </div>
+    </section>
+    <script type="text/javascript">
+      function fun() {
+          
+          var uname = document.getElementById("uname").value;
+          if (uname == "" || uname == "NULL") {
+              alert("please enter user name");
+              return false;
+          }
+          if (!validateEmail(uname)) {
+              alert("Enter valid email");
+              return false;
+          }
+  
+          var pass = document.getElementById("pass").value;
+          if (pass == "" || pass == "NULL") {
+              alert("please enter password");
+              return false;
+          }
+  
+  
+          var cpass = document.getElementById("cpass").value;
+          if (cpass == "" || cpass == "NULL") {
+              alert("please enter confirm password");
+              return false;
+          }
+          if (pass != cpass) {
+              alert("password and confirm password must be same");
+              return false;
+          }
+  
+  
+          return true;
+      }
+      function validateEmail(email) {
+        var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(email);
+      }
+    </script>
+  </body>
+</html>

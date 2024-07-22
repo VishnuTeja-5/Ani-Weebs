@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Movies</title>
+    <link rel="stylesheet" href="/public/css/admin.css">
+    <link rel="shortcut icon" href="/public/favicon.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <!-- header start -->
+    <%- include('admin-header') %>
+    <!-- header end -->
+    <!-- Main Start -->
+    <main class="main" id="main">
+        <section class="manage">
+            <div class="manage-heading">
+                <h1>Manage Movies</h1><p>Showing <span style="color: #D65A31;"><%= result.length %></span> Results</p>
+                <a href="/admin/add-movie"><button class="add-content-btn">Add Movie</button></a>
+            </div>
+            <div class="manage-table" style="overflow-x: auto;">
+                <table>
+                    <tr>
+                        <th>S.No.</th>
+                        <th>Name</th>
+                        <th>Cover Image</th>
+                        <th>Genres</th>
+                        <th>Rating</th>
+                        <th>Type</th>
+                        <th>Story-Line</th>
+                        <th>Actions</th>
+                    </tr>
+                    <% if(result.length>0) { %>
+                    <% for(let i = 0; i < result.length; i++){ %>
+                        <tr>
+                            <td><%= i+1 %></td>
+                            <td><%= result[i].anime_name %>
+                                <% if(result[i].arc_name !== '-' && result[i].arc_name!=='') { %>
+                                &nbsp;:&nbsp;<%= result[i].arc_name %>
+                                <% } %>
+                            </td>
+                            <td><img src="<%= result[i].cover_img %>" alt="" width="100%"></td>
+                            <td><%= result[i].genres %></td>
+                            <td><%= result[i].rating %></td>
+                            <td><%= result[i].type %></td>
+                            <td><%= result[i].story_line %></td>
+                            <td class="table-action">
+                                <button title="edit anime"><a href="/admin/edit-movie/<%= result[i].anime_id %>"><i class="material-icons">mode_edit</i></a></button>
+                                <button title="delete"><a href="/admin/delete-movie/<%= result[i].anime_id %>" onclick="return confirm('Are you sure, you want to delete <%= result[i].anime_name %> movie?');" ><i class="material-icons">delete</i></a></button>
+                            </td>
+                        </tr>
+                    <% } %>
+                    <% } %>
+                                        
+                </table>
+            </div>
+        </section>
+        
+        
+    </main>
+    <!-- Main End -->
+    <!-- footer start -->
+    <%- include('admin-footer') %>
+    <!-- footer end -->
+    <button class="back-to-top" onclick="topFunction()" id="myBtn" title="Go to top">&#8593;</button>
+    <!-- Scripts start -->
+    <script src="/public/scripts/admin.js"></script>
+    <script src="/public/scripts/file-include.js"></script>
+    <!-- Scripts end -->
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Movie File</title>
+    <link rel="stylesheet" href="/public/css/admin.css">
+    <link rel="shortcut icon" href="/public/favicon.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script
+        src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+        crossorigin="anonymous">
+    </script>
+</head>
+<body>
+    <!-- header start -->
+    <%- include('admin-header') %>
+    <!-- header end -->
+    <!-- Main Start -->
+    <main class="main">
+        <section class="form-section">
+            <h2>Add Movie Video </h2>
+            <form action="/admin/adding-movie-video" class="add-form" name="add-form" method="post" enctype="multipart/form-data">
+
+                <input type="number" name="animeId" id="animeId" value="<%= id %>" required style="display: none;" >
+
+                <label for="movieTitle">Movie&nbsp;Title<span style="color: #D65A31;">&nbsp;*</span></label>
+                <input type="text" name="movieTitle" id="movieTitle" placeholder="Spirit Away" required>
+
+
+                <label for="movieFile">Video file<span style="color: #D65A31;">&nbsp;*</span></label>
+                <input type="file" name="movieFile" id="movieFile " accept="video*/" required>
+
+                <label for="movieDuration">Duration<span style="color: #D65A31;">&nbsp;*</span></label>
+                <input type="text" name="movieDuration" id="movieDuration" placeholder="24min" required>
+
+                <div class="form-action-btn">
+                    <button type="reset">Reset</button>
+                    <button type="submit">Add</button>
+                </div>
+                
+                    
+            </form>
+        </section>
+        
+        
+    </main>
+    <!-- Main End -->
+    <!-- footer start -->
+    <%- include('admin-footer') %>
+    <!-- footer end -->
+
+
+    <button class="back-to-top" onclick="topFunction()" id="myBtn" title="Go to top">&#8593;</button>
+
+
+    <!-- Scripts start -->
+    <script src="/public/scripts/admin.js"></script>
+    <script src="/public/scripts/file-include.js"></script>
+    <!-- Scripts end -->
+</body>
+</html>

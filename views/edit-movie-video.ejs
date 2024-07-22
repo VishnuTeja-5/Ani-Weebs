@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Movie Video</title>
+    <link rel="stylesheet" href="/public/css/admin.css">
+    <link rel="shortcut icon" href="/public/favicon.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script
+        src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+        crossorigin="anonymous">
+    </script>
+</head>
+<body>
+    <!-- header start -->
+    <%- include('admin-header') %>
+    <!-- header end -->
+    <!-- Main Start -->
+    <main class="main">
+        <section class="form-section">
+            <h2>Edit Video</h2>
+            <form action="/admin/editing-movie-video" class="add-form" name="add-form" method="post" enctype="multipart/form-data">
+
+                <input type="number" name="videoId" id="videoId" value="<%= result.movie_id %>" style="display: none;" >
+
+                <label for="videoTitle">Episode&nbsp;Title</label>
+                <input type="text" name="videoTitle" id="videoTitle" placeholder="Spirited Away"  value="<%= result.movie_name %>">
+
+
+                <label for="movieFile">Video file</label>
+                <input type="file" name="movieFile" id="movieFile " accept="video*/">
+
+                <label for="videoDuration">Duration</label>
+                <input type="text" name="videoDuration" id="videoDuration" placeholder="24min" value="<%= result.duration %>" >
+
+                <div class="old-coverimage-section">
+                    <iframe src="https://player.cloudinary.com/embed/?cloud_name=delv0907j&public_id=<%= result.cloud_id%>&player[showJumpControls]=true&player[pictureInPictureToggle]=true"
+                        width="auto" height="auto" style=" padding:2rem; height: auto; width: 100%; aspect-ratio: 640/360;" allow="autoplay; fullscreen; encrypted-media; picture-in-picture" allowfullscreen frameborder="0"></iframe>
+                </div>
+                <div class="form-action-btn">
+                    <button type="reset">Reset</button>
+                    <button type="submit">Update</button>
+                </div>
+                
+                    
+            </form>
+        </section>
+        
+        
+    </main>
+    <!-- Main End -->
+    <!-- footer start -->
+    <%- include('admin-footer') %>
+    <!-- footer end -->
+
+
+    <button class="back-to-top" onclick="topFunction()" id="myBtn" title="Go to top">&#8593;</button>
+
+
+    <!-- Scripts start -->
+    <script src="/public/scripts/admin.js"></script>
+    <script src="/public/scripts/file-include.js"></script>
+    <!-- Scripts end -->
+</body>
+</html>

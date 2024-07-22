@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        Admin Login
+    </title>
+    <link rel="stylesheet" href="../public/css/loginstyle.css">
+    <link rel="shortcut icon" href="../public/favicon.ico" type="image/x-icon">
+    
+</head>
+<body>
+    <section class="container">
+        <div class="login-container">
+            <div class="circle circle-one"> <img src="../public/img/luffy-gear-5.png" alt="" srcset="" width="100%" ></div>
+            <div class="form-container">
+                
+                <h1 class="opacity">LOGIN</h1>
+                <form method="post" id="f1" action="/admin/auth">
+                    <input type="text" id="username" name ="username" placeholder="USERNAME@GMAIL.COM" />
+                    <input type="password" id="password" name = "password" placeholder="PASSWORD" />
+                
+                    <button name= "submit" id ="submit" class="opacity" onclick="return fun()">LOGIN</button>
+                    <!-- <table align="center" border="0">
+                        <tr>
+                            <td>{{status}}</td>
+                        </tr>
+                    </table> -->
+                </form>
+                <div class="register-forget opacity">
+                    <a href="/admin/admin-registration">SIGN UP</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a href="">FORGOT PASSWORD</a>
+                </div>
+            </div>
+            <div class="circle circle-two"></div>
+    </section>
+    <script type="text/javascript">
+        function fun(){
+            var us=document.getElementById("username").value;
+            if( us == "" || us == "NULL"){
+                document.getElementById("username").style.outline="outline:2px solid #D65A31";
+                alert("please enter user name");
+                return false;
+            }
+            if (!validateEmail(us)) {
+                alert("Enter valid email");
+                return false;
+            }
+            
+            var pass=document.getElementById("pass").value;
+            if(pass==""){
+                alert("please enter password");
+                return false;
+            }
+            return true;
+        }
+        function validateEmail(email) {
+            var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+          }
+    </script>
+</body>
+</html>
+
+<head>
+    
+</head>

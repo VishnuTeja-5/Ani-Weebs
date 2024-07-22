@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Movie</title>
+    <link rel="stylesheet" href="/public/css/admin.css">
+    <link rel="shortcut icon" href="/public/favicon.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script
+        src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+        crossorigin="anonymous">
+    </script>
+</head>
+<body>
+    <!-- header start -->
+    <%- include('admin-header') %>
+    <!-- header end -->
+    <!-- Main Start -->
+    <main class="main" id="main">
+        <div class="manage-heading">
+            <h1>Edit information</h1>
+        </div>
+        
+        <section class="form-section">
+            <h2>Edit Movie</h2>
+            <form action="/admin/editing-movie" class="add-form" name="add-form" method="post" enctype="multipart/form-data">
+                
+                <input type="text" name="animeId" id="animeId" value="<%= editInfo.anime_id %>" style="display: none;" >
+                
+                <label for="movieName">Anime&nbsp;Name</label>
+                <input type="text" name="movieName" id="movieName" placeholder="One Piece" value="<%= editInfo.anime_name %>">
+
+                <label for="arcName">Arc&nbsp;Name</label>
+                <input type="text" name="arcName" id="arcName" placeholder="Ennie Lobby" value="<%= editInfo.arc_name %>" >
+
+                <label for="type">Type</label>
+                <select class="custom-select" name="type" id="type">
+                    <option value="Anime" >Anime</option>
+                    <option value="Movie"selected>Movie</option>
+                </select>
+
+
+                <label for="rating">Rating</label>
+                <input type="text" name="rating" id="rating" placeholder="8.3" value="<%= editInfo.rating %>">
+
+                <label for="movieFile">Cover&nbsp;Image</label>
+                <input type="file" name="movieFile" id="movieFile" accept="video*/">
+
+                <label for="genres">Genres</label>
+                <textarea name="genres" id="genres" cols="30" rows="5" placeholder="Action, Adventure..."><%= editInfo.genres %></textarea>
+                
+                <label for="storyLine">Story-Line</label>
+                <textarea name="storyLine" id="storyLine" cols="30" rows="10" placeholder="Summary of anime."><%= editInfo.story_line %></textarea>
+
+                <div class="old-coverimage-section">
+                    <img src="<%= editInfo.cover_img %>" alt="Old Cover Image" title="Cover Image" >
+                </div>
+                
+                
+                <div class="form-action-btn">
+                    <button type="reset">Reset</button>
+                    <button type="submit">Update</button>
+                </div>
+                
+                    
+            </form>
+        </section>
+        <section class="manage" id="manage">
+            <div class="manage-heading">
+                <h1>Edit Movie</h1>
+                <a href="/admin/add-video/<%= editInfo.anime_id %>"><button class="add-content-btn">Add Video File</button></a>
+            </div>
+            <div class="manage-table" style="overflow-x: auto;">
+                <table>
+                    <tr>
+                        <th>S.No</th>
+                        <th>Movie Title</th>
+                        <th>Cloud Name</th>
+                        <th>Video File</th>
+                        <th>Duration</th>
+                        <th>Actions</th>
+                    </tr>
+                    <% if(movieInfo.length>0) { %>
+                        <% for(let i = 0; i < movieInfo.length; i++){ %>
+                            <tr>
+                                <td><%= i+1 %></td>
+                                <td><%= movieInfo[i].movie_name %></td>
+                                <td><%= movieInfo[i].cloud_id %></td>
+                                <td><iframe
+                                    src="https://player.cloudinary.com/embed/?public_id=<%= movieInfo[0].cloud_id %>&cloud_name=delv0907j&player[showJumpControls]=true&player[pictureInPictureToggle]=true&player[floatingWhenNotVisible]=right"
+                                    width="640"
+                                    height="360" 
+                                    style="height: auto; width: 100%; aspect-ratio: 640 / 360;"
+                                    allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
+                                    allowfullscreen
+                                    frameborder="0"
+                                  ></iframe></td>
+                                <td><%= movieInfo[i].duration %></td>
+                                <td class="table-action">
+                                    <button title="edit anime"><a href="/admin/edit-video/<%= movieInfo[i].movie_id %>"><i class="material-icons">mode_edit</i></a></button>
+                                    <button title="delete"><a href="/admin/delete-video/<%= movieInfo[i].movie_id %>" onclick="return confirm('Are you sure, you want to delete episode <%= movieInfo[i].movie_name %>?');" ><i class="material-icons">delete</i></a></button>
+                                </td>
+                            </tr>
+                        <% } %>
+                    <% } %>
+                    <!-- <tr>
+                        <td>01</td>
+                        <td>I'm Luffy!The Man Who's gonna be a King of Pirate </td>
+                        <td>path</td>
+                        <td>24min</td>
+                        <td class="table-action">
+                            <button title="edit episode"><a href="./edit-episode.html"><i class="material-icons">mode_edit</i></a></button>
+                            <button title="delete"><a href="#"><i class="material-icons">delete</i></a></button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>01</td>
+                        <td>I'm Luffy!The Man Who's gonna be a King of Pirate </td>
+                        <td>path</td>
+                        <td>24min</td>
+                        <td class="table-action">
+                            <button title="edit episode"><a href="./edit-episode.html"><i class="material-icons">mode_edit</i></a></button>
+                            <button title="delete"><a href="#"><i class="material-icons">delete</i></a></button>
+                        </td>
+                    </tr> -->
+                </table>
+            </div>
+        </section>
+        
+    </main>
+    <!-- Main End -->
+    <!-- footer start -->
+    <%- include('admin-footer') %>
+    <!-- footer end -->
+    <button class="back-to-top" onclick="topFunction()" id="myBtn" title="Go to top">&#8593;</button>
+    <!-- Scripts start -->
+    <script src="/public/scripts/admin.js"></script>
+    <script src="/public/scripts/file-include.js"></script>
+    <!-- Scripts end -->
+</body>
+</html>

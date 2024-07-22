@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Anime</title>
+    <link rel="stylesheet" href="/public/css/admin.css">
+    <link rel="shortcut icon" href="/public/favicon.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script
+        src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+        crossorigin="anonymous">
+    </script>
+</head>
+<body>
+    <!-- header start -->
+    <%- include('admin-header') %>
+    <!-- header end -->
+    <!-- Main Start -->
+    <main class="main" id="main">
+        <div class="manage-heading">
+            <h1>Edit information</h1>
+            <a href="#manage"><button class="add-content-btn">Add Episodes</button></a>
+        </div>
+        
+        <section class="form-section">
+            <h2>Edit Anime</h2>
+            <form action="/admin/editing-anime" class="add-form" name="add-form" method="post" enctype="multipart/form-data">
+                
+                <input type="text" name="animeId" id="animeId" value="<%= editInfo.anime_id %>" style="display: none;" >
+                
+                <label for="animeName">Anime&nbsp;Name</label>
+                <input type="text" name="animeName" id="animeName" placeholder="One Piece" value="<%= editInfo.anime_name %>">
+
+                <label for="arcName">Arc&nbsp;Name</label>
+                <input type="text" name="arcName" id="arcName" placeholder="Ennie Lobby" value="<%= editInfo.arc_name %>" >
+
+                <label for="type">Type</label>
+                <select class="custom-select" name="type" id="type">
+                    <option value="select">Select</option>
+                    <option value="Anime" selected>Anime</option>
+                    <option value="Movie">Movie</option>
+                </select>
+
+                <label for="season">Season</label>
+                <input type="number" name="season" id="season" placeholder="1" value="<%= editInfo.season %>">
+
+                <label for="rating">Rating</label>
+                <input type="text" name="rating" id="rating" placeholder="8.3" value="<%= editInfo.rating %>">
+
+                <label for="coverImg">Cover&nbsp;picture</label>
+                <input type="file" name="coverImg" id="coverImg" accept="image*/" value="<%= editInfo.cover_img %>">
+
+                <label for="genres">Genres</label>
+                <textarea name="genres" id="genres" cols="30" rows="5" placeholder="Action, Adventure..."><%= editInfo.genres %></textarea>
+                
+                <label for="storyLine">Story-Line</label>
+                <textarea name="storyLine" id="storyLine" cols="30" rows="10" placeholder="Summary of anime."><%= editInfo.story_line %></textarea>
+
+                <div class="old-coverimage-section">
+                    <img src="<%= editInfo.cover_img %>" alt="Old Cover Image" title="Cover Image" >
+                </div>
+                
+                <div class="form-action-btn">
+                    <button type="reset">Reset</button>
+                    <button type="submit">Update</button>
+                </div>
+                
+                    
+            </form>
+        </section>
+        <section class="manage" id="manage">
+            <div class="manage-heading">
+                <h1>Manage Episodes</h1>
+                <a href="/admin/add-episode/<%= editInfo.anime_id %>"><button class="add-content-btn">Add New Episode</button></a>
+            </div>
+            <div class="manage-table" style="overflow-x: auto;">
+                <table>
+                    <tr>
+                        <th>S.No</th>
+                        <th>Episode No.</th>
+                        <th>Episode title</th>
+                        <th>Video file</th>
+                        <th>Duration</th>
+                        <th>Actions</th>
+                    </tr>
+                    <% if(episodes.length>0) { %>
+                        <% for(let i = 0; i < episodes.length; i++){ %>
+                            <tr>
+                                <td><%= i+1 %></td>
+                                <td><%= episodes[i].episode_number %></td>
+                                <td><%= episodes[i].episode_title %></td>
+                                <td><iframe
+                                    src="https://player.cloudinary.com/embed/?public_id=<%= episodes[i].cloud_id %>&cloud_name=delv0907j&player[showJumpControls]=true&player[pictureInPictureToggle]=true&player[floatingWhenNotVisible]=right"
+                                    width="640"
+                                    height="360" 
+                                    style="height: auto; width: 100%; aspect-ratio: 640 / 360;"
+                                    allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
+                                    allowfullscreen
+                                    frameborder="0"
+                                  ></iframe>
+                                    </td>
+                                <td><%= episodes[i].duration %></td>
+                                <td class="table-action">
+                                    <button title="edit anime"><a href="/admin/edit-episode/<%= episodes[i].episode_id %>"><i class="material-icons">mode_edit</i></a></button>
+                                    <button title="delete"><a href="/admin/delete-episode/<%= episodes[i].episode_id %>" onclick="return confirm('Are you sure, you want to delete episode <%= episodes[i].episode_number %>?');" ><i class="material-icons">delete</i></a></button>
+                                </td>
+                            </tr>
+                        <% } %>
+                        <% } %>
+                    <!-- <tr>
+                        <td>01</td>
+                        <td>I'm Luffy!The Man Who's gonna be a King of Pirate </td>
+                        <td>path</td>
+                        <td>24min</td>
+                        <td class="table-action">
+                            <button title="edit episode"><a href="./edit-episode.html"><i class="material-icons">mode_edit</i></a></button>
+                            <button title="delete"><a href="#"><i class="material-icons">delete</i></a></button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>01</td>
+                        <td>I'm Luffy!The Man Who's gonna be a King of Pirate </td>
+                        <td>path</td>
+                        <td>24min</td>
+                        <td class="table-action">
+                            <button title="edit episode"><a href="./edit-episode.html"><i class="material-icons">mode_edit</i></a></button>
+                            <button title="delete"><a href="#"><i class="material-icons">delete</i></a></button>
+                        </td>
+                    </tr> -->
+                </table>
+            </div>
+        </section>
+    </main>
+    <!-- Main End -->
+    <!-- footer start -->
+    <%- include('admin-footer') %>
+    <!-- footer end -->
+    <button class="back-to-top" onclick="topFunction()" id="myBtn" title="Go to top">&#8593;</button>
+    <!-- Scripts start -->
+    <script src="/public/scripts/admin.js"></script>
+    <script src="/public/scripts/file-include.js"></script>
+    <!-- Scripts end -->
+</body>
+</html>

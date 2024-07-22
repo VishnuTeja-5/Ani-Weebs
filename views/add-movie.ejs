@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Movie Page</title>
+    <link rel="stylesheet" href="/public/css/admin.css">
+    <link rel="shortcut icon" href="/public/favicon.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <!-- header start -->
+    <%- include('admin-header') %>
+    <!-- header end -->
+    <!-- Main Start -->
+    <main class="main">
+        <section class="form-section">
+            <h2>Add New Movie</h2>
+            <form method="post" action="/admin/adding-movie" class="add-form" name="add-form" enctype="multipart/form-data">
+                <label for="movieName">Anime&nbsp;Name<span style="color: #D65A31;">&nbsp;*</span></label>
+                <input type="text" name="movieName" id="movieName" placeholder="One Piece" required>
+
+                <label for="arcName">Arc&nbsp;Name&nbsp;&nbsp;</label>
+                <input type="text" name="arcName" id="arcName" placeholder="Ennie Lobby">
+
+                <label for="type">Type <span style="color: #D65A31;">&nbsp;*</span></label>
+                <select class="custom-select" name="type" id="type" required >
+                    <option value="Movie" selected>Movie</option>
+                    <!-- <option value="Anime" >Anime</option> -->
+                </select>
+
+                <!-- <label for="season">Season&nbsp;&nbsp;</label>
+                <input type="number" name="season" id="season" placeholder="1"> -->
+
+                <label for="rating">Rating <span style="color: #D65A31;">&nbsp;*</span></label>
+                <input type="text" name="rating" id="rating" placeholder="8.3" required>
+
+                <label for="movieFile">Cover&nbsp;Image <span style="color: #D65A31;">&nbsp;*</span></label>
+                <input type="file" name="movieFile" id="movieFile" accept="video*/" required>
+
+                <label for="genres">Genres <span style="color: #D65A31;">&nbsp;*</span></label>
+                <textarea name="genres" id="genres" cols="30" rows="5" placeholder="Action, Adventure..." required></textarea>
+                
+                <label for="storyLine">Story-Line <span style="color: #D65A31;">&nbsp;*</span></label>
+                <textarea name="storyLine" id="storyLine" cols="30" rows="10" placeholder="Summary of anime." required></textarea>
+
+                <div class="form-action-btn">
+                    <button type="reset">Reset</button>
+                    <button type="submit">Add</button>
+                </div> 
+            </form>
+        </section>
+        
+        
+    </main>
+    <!-- Main End -->
+    <!-- footer start -->
+    <%- include('admin-footer') %>
+    <!-- footer end -->
+
+
+    <button class="back-to-top" onclick="topFunction()" id="myBtn" title="Go to top">&#8593;</button>
+
+
+    <!-- Scripts start -->
+    <script src="/public/scripts/admin.js"></script>
+    <script src="/public/scripts/file-include.js"></script>
+    <!-- Scripts end -->
+</body>
+</html>

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video</title>
+    <link rel="stylesheet" href="/public/css/style.css">
+    <link rel="shortcut icon" href="/public/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <script
+        src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+        crossorigin="anonymous">
+    </script>
+</head>
+<body>
+    <!-- header start -->
+    <%- include('header') %>
+    <!-- header end -->
+    <section class="search-section" id="search-section" style="padding: 1rem; display:none;">
+        <form class="search-form" action="/search" method="post" >
+        <input type="search" class="search" name="search" id="search" placeholder="Search..." />
+        <button class="openbtn">Search</button>
+        </form>
+    </section>
+
+    <main>
+        <!-- Anime Info start-->
+        <section class="anime-info">
+            <div class="anime-poster"><img src="<%= result[0].cover_img %>" alt="anime-poster" srcset="" loading="lazy"></div>
+            <div class="anime-name-description">
+            <div class="anime-name">
+                
+                <h1><%= result[0].anime_name %><% if(result[0].arc_name !== '-' && result[0].arc_name!=='') { %>
+                    <%= result[0].arc_name %>
+                    <% } %></h1>
+                <h3><% if(result[0].season > 0) { %>
+                    Season <%= result[0].season %>
+                    <% } %>
+                </h3>
+                <a href="#video-area"><button class="watch-button" type="button">Watch Now</button></a>
+            </div>
+            <div class="anime-description">
+                <div class="story-line">
+                    <h3>Story-Line:</h3>    
+                    <p>
+                        <%= result[0].story_line %>
+                    </p>
+                </div>
+                <div class="rating">
+                    <strong>Rating: </strong> &#10031; <span><%= result[0].rating %>/10</span> 
+                </div>
+                <div class="genres">
+                    <strong>Genres: </strong>  
+                    <span><%= result[0].genres %></span>
+                </div>
+            </div>
+            </div>
+        </section>
+        <!-- Anime info end -->
+        <!-- Video start -->
+        <section class="video-area" id="video-area">
+            <% if(result[0].type==='Anime') { %>
+            <div class="video-player">
+                
+                    <% if(episodeList.length > 0) { %>
+                    <iframe id="video" src="https://player.cloudinary.com/embed/?cloud_name=delv0907j&public_id=<%= episodeList[0].cloud_id%>&player[showJumpControls]=true&player[pictureInPictureToggle]=true"
+                        width="auto" height="auto" style=" padding:2rem; height: auto; width: 100%; aspect-ratio: 640/360;" allow="autoplay; fullscreen; encrypted-media; picture-in-picture" allowfullscreen frameborder="0">
+                    <p></p>
+                    </iframe>
+                    <% } else { %>
+                        <video controls >
+                            <source src="/public/uploads/One Piece - 1071 360p.mkv">
+                        </video>
+                    <% } %>
+                
+            </div>
+            <!-- <div>
+                <h3>Episode List</h3>
+            </div> -->
+            <div class="episode-list">
+                <% if(episodeList.length > 0) { %>
+                    <% for(let i=0; i < episodeList.length; i++) { %>
+                        <button onclick="video('<%= episodeList[i].cloud_id  %>')" ><%= episodeList[i].episode_number %></button>
+                    <% } %>
+                <% } else { %>
+                    <% for(let i=0; i < 50; i++) { %>
+                        <button ><%= i+1 %></button>
+                    <% } %>
+                
+                <% } %>
+            </div>
+            <% } else { %>
+                <div class="video-player" style="grid-column:1/6; display:flex; justify-content:center ">
+                
+                    <% if(episodeList.length > 0) { %>
+                    <iframe id="video" src="https://player.cloudinary.com/embed/?cloud_name=delv0907j&public_id=<%= episodeList[0].cloud_id%>&player[showJumpControls]=true&player[pictureInPictureToggle]=true"
+                        width="auto" height="auto" style=" padding:2rem; height: auto; width: 800px; aspect-ratio: 640/360;" allow="autoplay; fullscreen; encrypted-media; picture-in-picture" allowfullscreen frameborder="0">
+                    <p></p>
+                    </iframe>
+                    <% } else { %>
+                        <video controls >
+                            <source src="/public/uploads/One Piece - 1071 360p.mkv" style="display:flex; justify-content:center; " >
+                        </video>
+                    <% } %>
+                
+            </div>
+            <% } %>
+        </section>
+        <!-- Video end -->
+
+        <!-- Anime Content Start -->
+        <section class="anime-collection">
+            <!-- Recommended Anime  -->
+            <!-- <section class="collection">
+                <h3 class="group-head" id="top-rated-anime"> <a href="#">&#9734;&nbsp;Recommended</a> </h3>
+                <div class="group-content">
+                    <a href="./video.html">
+                        <div class="card">
+                            <div class="card-cover"><img src="../public/img/one-piece-cover.jpg" alt="" width="100%" loading="lazy"></div>
+                            <div class="card-content"> One piece </div>
+                        </div>
+                    </a>
+                    <a href="./video.html">
+                        <div class="card">
+                            <div class="card-cover"><img src="../public/img/one-piece-cover.jpg" alt="" width="100%" loading="lazy"></div>
+                            <div class="card-content"> One piece </div>
+                        </div>
+                    </a>
+                    <a href="./video.html">
+                        <div class="card">
+                            <div class="card-cover"><img src="../public/img/one-piece-cover.jpg" alt="" width="100%" loading="lazy"></div>
+                            <div class="card-content"> One piece </div>
+                        </div>
+                    </a>
+                    <a href="./video.html">
+                        <div class="card">
+                            <div class="card-cover"><img src="../public/img/one-piece-cover.jpg" alt="" width="100%" loading="lazy"></div>
+                            <div class="card-content"> One piece </div>
+                        </div>
+                    </a>
+                    <div class="more"><a href="./anime.html">See More</a></div>
+                    
+                </div>
+                
+            </section>  -->
+        </section>
+        <!-- Anime Content End -->
+
+    </main>
+
+    <!-- footer start -->
+    <%- include('footer') %>
+    <!-- footer end -->
+    <button class="back-to-top" onclick="topFunction()" id="myBtn" title="Go to top">&#8593;</button>
+    <!-- Scripts start -->
+    <script src="/public/scripts/main.js"></script>
+    <script src="/public/scripts/file-include.js"></script>
+    <!-- Scripts end -->
+</body>
+</html>
